@@ -1,0 +1,20 @@
+<?php
+
+class GameEngine() {
+
+    public function getId() {
+        
+    }
+    public function getJoueur() {
+
+    }
+    public function tourDeJeu() {
+
+    }
+    public function nettoyerMort() {
+
+    }
+    public function fin() {
+
+    }
+}
