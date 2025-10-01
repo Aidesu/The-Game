@@ -15,11 +15,11 @@ class GameEngine {
         echo "initializing OK\n";
         $this->exit = false;
         system('clear');
-        echo "\e[0;36m##########################################################################\e[0m\n";
-        echo "\e[0;36m#                                                                        #\e[0m\n";
-        echo "\e[0;36m#                         \e[0m\e[0;35m Welcome to The Game !\e[0m\e[0;36m                         #\e[0m\n";
-        echo "\e[0;36m#                                                                        #\e[0m\n";
-        echo "\e[0;36m##########################################################################\e[0m\n";
+        echo "\e[0;36m##############################################################################\e[0m\n";
+        echo "\e[0;36m#                                                                            #\e[0m\n";
+        echo "\e[0;36m#                \e[1;37m  ✦        \e[0;35m Welcome to The Game !\e[0;36m        \e[1;37m✦                 \e[0;36m #\n";
+        echo "\e[0;36m#                                      ▬▬ι═══════ﺤ                           #\e[0m\n";
+        echo "\e[0;36m##############################################################################\e[0m\n";
     }
 
     private function getId(): int {
@@ -61,7 +61,7 @@ class GameEngine {
     //             $this->nettoyerMort(0);
     //         }
         }
-    echo "Un tour passer\n";
+    echo "\e[0;36m#\e[0;35m Un tour passer\n";
 }
 
     public function nettoyerMort($x) {
@@ -75,6 +75,15 @@ class GameEngine {
 
     public function getExit() {
         return $this->exit;
+    }
+
+    public function setExit() {
+        echo "\e[0;36m#\n";
+        echo "\e[0;36m#\n";
+        echo "\e[0;36m#                          \e[0;35m  Le combat est terminer\n";
+        echo "\e[0;36m#\n";
+        echo "\e[0;36m##############################################################################\e[0m\n";
+        $this->exit = true;
     }
 
     

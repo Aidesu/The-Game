@@ -13,7 +13,6 @@ $game->addCombattant(new Elfe("Bertrant"));
 
 echo $game->getJoueur();
 
-$exit = false;
 while(!$game->getExit()){
     $action = readline("\e[0;36m# \e[0;35m Entrez votre action \e[1;33m (1) Continuer le combat\e[0;35m, \e[0;31m(2) Quitter le combat\e[0;35m : ");
     switch ($action) {
@@ -24,7 +23,7 @@ while(!$game->getExit()){
             $game->tourDeJeu();
         break;
         case 2:
-            $exit = true;
+            $game->setExit();
         break;
     }
 }
