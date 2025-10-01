@@ -8,32 +8,38 @@ abstract class Personnages {
     private int $maxLife;
     private int $strength;
     private int $critRate;
+    private int $totalDmg;
+    private int $totalKills;
+
 
     public function __construct($name) {
         $this->name = $name;
+        $this->totalDmg = 0;
+        $this->totalKills = 0;
     }
 
     public function attack($who) {
         
         if ($this->life > 0){
             $who->getDamage($this->strength);
+            $this->totalDmg += $this->strength;
             $this->displayLife();
             if ($who->getLife() > 0){
-                echo "\e[0;36m#  \e[0;32m". $this->name . " \e[0;35mattack ";
-                usleep(500000);
+                echo "\e[0;36m#  \e[0;32m". $this->name . " \e[0;35mattack\e[0;32m " . $who->getName();
+                // usleep(500000);
+                echo "\e[0;35m .";
+                // usleep(500000);
                 echo ".";
-                usleep(500000);
-                echo ".";
-                usleep(500000);
+                // usleep(500000);
                 echo ".\n";
-                usleep(500000);
+                // usleep(500000);
                 
                 echo "\e[0;36m#  \e[0;32m". $this->name . " \e[0;35minflige \e[1;33m" . $this->strength . " \e[0;35mdegat a \e[0;32m" . $who->getName() . " \e[0;35mil lui reste \e[0;31m" . $who->getLife(). "hp \n\e[0;36m#\n";
+                // usleep(250000);
             } else {
             $who->dead($this);
-            }
-        } else {
-            $this->deadMessage();
+            // usleep(250000);
+        }
         }
         
 
@@ -55,7 +61,7 @@ abstract class Personnages {
         }elseif($this->life / $this->maxLife * 100 >= 20){
             echo "\e[1;31m❤❤\e[0m\n";
         }
-        elseif($this->life / $this->maxLife * 100 >= 10){
+        elseif($this->life / $this->maxLife * 100 <= 20){
             echo "\e[1;31m❤\e[0m\n";
         }
     }
@@ -65,7 +71,9 @@ abstract class Personnages {
     }
 
     public function dead($assassin) {
-        echo "\e[0;36m#  \e[0;32m". $assassin->getName() . "\e[0;35m a tuer \e[0;32m" . $this->name . "\e[0;35m gloire au roi Arthur\n";
+        $assassin->totalKills += 1;
+        echo "\e[1;31m#  \e[0;32m". $assassin->getName() . "\e[0;35m a\e[1;31m tuer \e[0;32m" . $this->name . "\e[0;35m gloire au roi Arthur\n";
+        usleep(250000);
     }
 
 
@@ -93,6 +101,14 @@ abstract class Personnages {
         $this->critRate = $critRate;
     }
 
+    public function getTotalDmg() {
+        return $this->totalDmg;
+    }
+
+    public function getTotalKills() {
+        return $this->totalKills;
+    }
+
     abstract public function deadMessage();
 
 }
@@ -108,7 +124,7 @@ class Elfe extends Personnages {
     }
 
     public function deadMessage(){
-        echo "La grâce et la sagesse de cet Elfe ". $this->getName() ." disparaissent à jamais dans les ténèbres.\n";
+        echo "\e[0;36m#\n#  La grâce et la sagesse de cet Elfe ". $this->getName() ." disparaissent à jamais dans les ténèbres.\n";
     }
 }
 
@@ -124,7 +140,7 @@ class Orc extends Personnages {
     }
 
     public function deadMessage(){
-        echo "Le rugissement de cet Orc ". $this->getName() ."s'est eteint, laissant place au silence de la mort.\n";
+        echo "\e[0;36m#\n#  Le rugissement de cet Orc ". $this->getName() ."s'est eteint, laissant place au silence de la mort.\n";
     }
     
 }
@@ -141,7 +157,7 @@ class Humain extends Personnages {
     }
 
     public function deadMessage(){
-        echo "Ni gloire ni fortune n'ont pu sauver cet Humain " . $this->getName() . " de sa fin tragique.";
+        echo "\e[0;36m#\n#  Ni gloire ni fortune n'ont pu sauver cet Humain " . $this->getName() . " de sa fin tragique.\n";
     }
     
 }
